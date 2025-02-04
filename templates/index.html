@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Home page{% endblock %}
+
+{% block content %}
+
+    <p>{{ message }}</p>
+
+    <center>
+        <form method="POST" action="{{ url_for('add_url') }}">
+            <input type="text" name="url" placeholder="Enter your long url"><br>
+            <input type="submit" value="Shorten">
+        </form>
+    </center>
+
+{% endblock %}

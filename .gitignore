@@ -1,3 +1,5 @@
+.__pycache__/
+
 # Ignore environment variables
 .env
 
@@ -6,3 +8,4 @@
 
 #Ignore other data files
 database info.txt
+venv/
