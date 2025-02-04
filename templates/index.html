@@ -12,4 +12,12 @@
         </form>
     </center>
 
+    <ul>
+        {% for url in urls %}
+            <li>{{ url[1] }} : {{ url[2] }}</li>
+        {% endfor %}
+    </ul>
+
+    <h4>{{ short_code  }}</h4>
+
 {% endblock %}
