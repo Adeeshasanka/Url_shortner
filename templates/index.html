@@ -3,20 +3,13 @@
 
 {% block content %}
 
-    <p>{{ message }}</p>
 
-    <center>
-        <form method="POST" action="{{ url_for('add_url') }}">
-            <input type="text" name="url" placeholder="Enter your long url"><br>
-            <input type="submit" value="Shorten">
+        <form method="POST" class="mt-3" action="{{ url_for('add_url') }}" >
+            <input type="text" name="url" placeholder="Enter your long url" class="form-control"><br>
+            <input class="btn btn-success mt-2" type="submit" value="Shorten">
         </form>
-    </center>
 
-    <ul>
-        {% for url in urls %}
-            <li>{{ url[1] }} : {{ url[2] }}</li>
-        {% endfor %}
-    </ul>
+    <p>{{ message }}</p>
 
     <h4>{{ short_code  }}</h4>
 
