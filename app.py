@@ -1,6 +1,6 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, request
 from flask_mysqldb import MySQL
-from generator import generate_short_code
+from functions import generate_short_code
 
 app = Flask(__name__, template_folder='templates')
 
@@ -13,18 +13,16 @@ app.config['MYSQL_DB'] = 'url_shortner_db'  # MySQL database name
 mysql = MySQL(app)
 
 @app.route('/<short_code>')
-def redirect(short_code):
+def redirect_to_url(short_code):
     cur = mysql.connection.cursor()
-    cur.execute('SELECT * FROM url_table')
-    urls = cur.fetchall()
-
-    if urls:
-        for url in urls:
-            if url[1] == short_code:
-                your_url = url[2]
-                return render_template('index.html', message=your_url)
+    cur.execute('SELECT url FROM url_table WHERE code_key = %s', (short_code,))
+    result = cur.fetchone()
+    
+    if result:
+        return redirect(result[0])
+        cur.close()
     else:
-        return render_template('index.html', message='fuck everthing!')
+        return render_template('index.html', message='Invalid URL! please use a valid URL')
 
 @app.route('/')
 def home():
@@ -32,8 +30,23 @@ def home():
 
 @app.route('/add_url', methods=['POST'])
 def add_url():
-    short_code = generate_short_code()
-    return render_template('index.html', message = f"http://127.0.0.1:5000/{short_code}")
+    if request.method == 'POST':
+        url = request.form['url']
+        cur = mysql.connection.cursor()
+        
+        while True:
+            short_code = generate_short_code()
+            cur.execute('SELECT url FROM url_table WHERE code_key = %s', (short_code,))
+            result = cur.fetchone()
+            if not result:
+                break
+
+        cur.execute('INSERT INTO url_table (code_key, url) VALUES (%s, %s)', (short_code, url))
+        mysql.connection.commit()
+        cur.close()
+        return render_template('index.html', message = f"http://127.0.0.1:5000/{short_code}")
+    else:
+        return render_template('index.html', message = f"wrong request!")
 
 
 if __name__ == '__main__':
