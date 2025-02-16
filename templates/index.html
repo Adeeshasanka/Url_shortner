@@ -3,14 +3,19 @@
 
 {% block content %}
 
-
+    <div class="container">
         <form method="POST" class="mt-3" action="{{ url_for('add_url') }}" >
             <input type="text" name="url" placeholder="Enter your long url" class="form-control"><br>
             <input class="btn btn-success mt-2" type="submit" value="Shorten">
         </form>
 
-    <p>{{ message }}</p>
+        <div class="container">
 
-    <h4>{{ short_code  }}</h4>
+            <p>{{ message }}</p>
+        
+        </div>
+
+    </div>>
+
 
 {% endblock %}
