@@ -9,13 +9,30 @@
             <input class="btn btn-success mt-2" type="submit" value="Shorten">
         </form>
 
-        <div class="container">
+        <div id="shortened_url">
 
-            <p>{{ message }}</p>
+            <h4>Your shortened url: </h4>
+            <p id="message">{{ message }}</p>
         
         </div>
 
-    </div>>
+    </div>
 
+{% endblock %}
+
+{% block scripts %}
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+        let messagebox = document.getElementById("message");
+        let shortenedUrlBox = document.getElementById("shortened_url");
+
+        if (messagebox.textContent.trim() !== "") {
+            shortenedUrlBox.style.display = "block"
+        }
+    });
+
+</script>
 
 {% endblock %}

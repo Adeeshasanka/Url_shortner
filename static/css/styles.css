@@ -1,0 +1,19 @@
+body {
+    background-color: #cce7db;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+#shortened_url {
+    margin-top: 50px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: rgb(181, 210, 227);
+    display: none;
+}
+
+#message {
+    font-size: 25px;
+    font-style: italic;
+    color: rgb(5, 119, 47);
+}
